@@ -70,7 +70,7 @@ func params(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func main() {
+func mainExec() {
 	r := mux.NewRouter()
 
 	api := r.PathPrefix("/api/v1").Subrouter()

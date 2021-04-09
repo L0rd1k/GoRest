@@ -21,7 +21,7 @@ type Account struct {
 	gorm.Model
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	Token    string `json:"token";sql:"-"`
+	Token    string `json:"token" ;sql:"-"`
 }
 
 func (account *Account) Validate() (map[string]interface{}, bool) {
@@ -29,7 +29,7 @@ func (account *Account) Validate() (map[string]interface{}, bool) {
 		return utils.Message(false, "Email address is required"), false
 	}
 	if len(account.Password) < 6 {
-		return utils.Message(false, "Password is required"), false
+		return utils.Message(false, "Password required! Less than 6!"), false
 	}
 	temp := &Account{}
 	err := GetDataBase().Table("accounts").Where("email = ?", account.Email).First(temp).Error

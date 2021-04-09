@@ -11,7 +11,7 @@ type Contact struct {
 	gorm.Model
 	Name   string `json:"name"`
 	Phone  string `json:"phone"`
-	UserId uint   `json:"user_id"` //Пользователь, которому принадлежит этот контакт
+	UserId uint   `json:"user_id"`
 }
 
 func (contact *Contact) Validate() (map[string]interface{}, bool) {
@@ -24,7 +24,6 @@ func (contact *Contact) Validate() (map[string]interface{}, bool) {
 	if contact.UserId <= 0 {
 		return utils.Message(false, "User is not recognized"), false
 	}
-	//Все обязательные параметры присутствуют
 	return utils.Message(true, "success"), true
 }
 
@@ -48,13 +47,11 @@ func GetContact(id uint) *Contact {
 }
 
 func GetContacts(user uint) []*Contact {
-
 	contacts := make([]*Contact, 0)
 	err := GetDataBase().Table("contacts").Where("user_id = ?", user).Find(&contacts).Error
 	if err != nil {
 		fmt.Println(err)
 		return nil
 	}
-
 	return contacts
 }
