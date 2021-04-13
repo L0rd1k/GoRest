@@ -1,4 +1,4 @@
-module api-test
+module sample-rest-api
 
 go 1.16
 
